@@ -1,20 +1,11 @@
 package com.datawarga.controller;
 
-import com.datawarga.dto.ListDataResponse;
-import com.datawarga.dto.RequestData;
 import com.datawarga.dto.ResponseData;
 import com.datawarga.entity.Warga;
 import com.datawarga.service.WargaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.List;
 
 
