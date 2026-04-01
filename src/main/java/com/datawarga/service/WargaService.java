@@ -1,5 +1,7 @@
 package com.datawarga.service;
 
+import com.datawarga.dto.RequestData;
+import com.datawarga.dto.ResponseData;
 import com.datawarga.entity.Warga;
 import com.datawarga.repo.WargaRepos;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,57 +36,37 @@ public class WargaService {
     }
 
 
+    public List<Warga> getWargaList(){
+        return wargaRepos.findAll();
+    }
+
+
 
 //    public Warga save(Warga warga){
 //        return wargaRepos.save(warga);
 //    }
 
+    public ResponseData saveData(RequestData requestData){
 
-//    public ResponseData saveData(RequestData requestData){
-//        try{
-//            Warga warga1 = wargaRepos.save(Warga.builder()
-//                    .nama(requestData.getNama())
-//                    .pekerjaan(requestData.getPekerjaan())
-//                    .build());
-//            return ResponseData.builder()
-//                    .success(true)
-//                    .messages("Success")
-//                    .data(ListDataResponse.builder().Warga(warga1).build())
-//                    .build();
-//        }catch (Exception e){
-//            return ResponseData.builder()
-//                    .success(false)
-//                    .messages("Authorization Invalid")
-//                    .data(null)
-//                    .build();
-//        }
-//    }
-//
-//    public Warga update(Warga warga){
-//        return wargaRepos.save(warga);
-//    }
-//
-//    public Warga findOne(Long id){
-//        Optional<Warga> warga = wargaRepos.findById(id);
-//        if(!warga.isPresent()){
-//            return null;
-//        }
-//        return warga.get();
-//    }
-//
-//    public List<Warga> findAll(){
-//        return wargaRepos.findAll();
-//    }
+        boolean isInsert = wargaRepos.existsByNama(requestData.getNama());
+        if(isInsert){
+           return ResponseData.builder()
+                   .success(false)
+                   .messages("Data Sudah ada di database")
+                   .build();
+        }
 
-//    public Warga softDelete(Long id){
-//        Warga currentWarga = findOne(id);
-//        currentWarga.setDeleted(Boolean.TRUE);
-//        return wargaRepos.save(currentWarga);
-//    }
+        Warga warga = new Warga();
+        warga.setNama(requestData.getNama());
+        warga.setPekerjaan(requestData.getPekerjaan());
+        wargaRepos.save(warga);
 
-//    public List<Warga> findByNama(String nama){
-//        return wargaRepos.findByNamaContains(nama);
-//    }
+        return ResponseData.builder()
+                .success(true)
+                .messages("success")
+                .build();
+
+    }
 
 
 

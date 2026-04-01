@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Data
 @Builder
-//@Table(name = "tabel_warga")
+@Table(name = "tabel_warga")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,35 +35,4 @@ public class Warga implements Serializable {
     @Column(name = "deleted")
     private Boolean deleted = Boolean.FALSE;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public String getPekerjaan() {
-        return pekerjaan;
-    }
-
-    public void setPekerjaan(String pekerjaan) {
-        this.pekerjaan = pekerjaan;
-    }
-
-//    public Boolean getDeleted() {
-//        return deleted;
-//    }
-//
-//    public void setDeleted(Boolean deleted) {
-//        this.deleted = deleted;
-//    }
 }

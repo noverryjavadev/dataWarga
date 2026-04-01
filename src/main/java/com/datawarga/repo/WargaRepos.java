@@ -9,22 +9,6 @@ import java.util.List;
 @Repository
 public interface WargaRepos extends JpaRepository<Warga, Long> {
     List<Warga> findByNamaContains(String nama);
+
+    boolean existsByNama(String nama);
 }
-
-
-//     {       "success": true,
-//        "message": "successfully",
-//        "data":
-//            {
-//            "warga":
-//                [
-//                        { "nama": "budi",
-//                         "pekerjaan": "guru" },
-//                        { "nama": "supri",
-//                         "pekerjaan": "supir" }
-//               ],
-
-
-//        "totalWarga": "2"
-//             }
-//  }
