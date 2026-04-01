@@ -68,6 +68,19 @@ public class WargaService {
 
     }
 
+    public ResponseData updateData(RequestData requestData){
+
+        Warga warga = wargaRepos.findByNamaContains(requestData.getNama()).get(0);
+        warga.setPekerjaan(requestData.getPekerjaan());
+        wargaRepos.save(warga);
+
+        return ResponseData.builder()
+                .success(true)
+                .messages("success")
+                .build();
+
+    }
+
 
 
 

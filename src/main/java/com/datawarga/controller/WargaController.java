@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Objects;
 
 
 @RestController
@@ -40,9 +39,15 @@ public class WargaController {
 
     }
 
-    @PostMapping(value = "save/warga")
+    @PostMapping(value = "/save/warga")
     public ResponseEntity<Object> save(@RequestBody RequestData requestData){
         ResponseData responseData = wargaService.saveData(requestData);
+        return ResponseEntity.ok().body(responseData);
+    }
+
+    @PutMapping("/update/warga")
+    public ResponseEntity<Object> update(@RequestBody RequestData requestData){
+        ResponseData responseData = wargaService.updateData(requestData);
         return ResponseEntity.ok().body(responseData);
     }
 
