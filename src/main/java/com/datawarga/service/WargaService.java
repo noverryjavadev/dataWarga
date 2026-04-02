@@ -4,35 +4,36 @@ import com.datawarga.dto.RequestData;
 import com.datawarga.dto.ResponseData;
 import com.datawarga.entity.Warga;
 import com.datawarga.repo.WargaRepos;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class WargaService {
 
-    @Autowired
-    private WargaRepos wargaRepos;
+    private final WargaRepos wargaRepos;
 
-
-    private Warga wargaBambang;
-    private Warga wargaSantoso;
-
+    private static final String SUCCESS = "success";
 
     public List<Warga> init(){
-        wargaBambang = new Warga();
+        Warga wargaBambang = new Warga();
         wargaBambang.setNama("Bambang");
         wargaBambang.setPekerjaan("Sopir");
 
-        wargaSantoso = new Warga();
+        Warga wargaSantoso = new Warga();
         wargaSantoso.setNama("Santoso");
         wargaSantoso.setPekerjaan("Bakul bakwan");
 
 
-        return null;
+        List<Warga>  wargas = new ArrayList<>();
+        wargas.add(wargaBambang);
+        wargas.add(wargaSantoso);
+        return wargas;
     }
 
 
@@ -40,13 +41,7 @@ public class WargaService {
         return wargaRepos.findAll();
     }
 
-
-
-//    public Warga save(Warga warga){
-//        return wargaRepos.save(warga);
-//    }
-
-    public ResponseData saveData(RequestData requestData){
+    public ResponseData<Object> saveData(RequestData requestData){
 
         boolean isInsert = wargaRepos.existsByNama(requestData.getNama());
         if(isInsert){
@@ -63,12 +58,12 @@ public class WargaService {
 
         return ResponseData.builder()
                 .success(true)
-                .messages("success")
+                .messages(SUCCESS)
                 .build();
 
     }
 
-    public ResponseData updateData(RequestData requestData){
+    public ResponseData<Object> updateData(RequestData requestData){
 
         Warga warga = wargaRepos.findByNamaContains(requestData.getNama()).get(0);
         warga.setPekerjaan(requestData.getPekerjaan());
@@ -76,17 +71,17 @@ public class WargaService {
 
         return ResponseData.builder()
                 .success(true)
-                .messages("success")
+                .messages(SUCCESS)
                 .build();
 
     }
 
 
-    public ResponseData showData(Long id){
-        Warga warga = wargaRepos.findById(id).get();
+    public ResponseData<Object> showData(Long id){
+        Warga warga = wargaRepos.findById(id).orElse(null);
         return ResponseData.builder()
                 .success(true)
-                .messages("success")
+                .messages(SUCCESS)
                 .data(warga)
                 .build();
     }

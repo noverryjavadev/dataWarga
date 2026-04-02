@@ -11,6 +11,7 @@ import java.util.List;
 
 
 @RestController
+
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class WargaController {
@@ -18,7 +19,7 @@ public class WargaController {
     private final WargaService wargaService;
 
     @GetMapping(value = "/warga")
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<Object> findAll(){
 
         try {
             List<Warga> wargas = wargaService.getWargaList();
@@ -41,19 +42,19 @@ public class WargaController {
 
     @PostMapping(value = "/save/warga")
     public ResponseEntity<Object> save(@RequestBody RequestData requestData){
-        ResponseData responseData = wargaService.saveData(requestData);
+        ResponseData<Object> responseData = wargaService.saveData(requestData);
         return ResponseEntity.ok().body(responseData);
     }
 
     @PutMapping("/update/warga")
     public ResponseEntity<Object> update(@RequestBody RequestData requestData){
-        ResponseData responseData = wargaService.updateData(requestData);
+        ResponseData<Object> responseData = wargaService.updateData(requestData);
         return ResponseEntity.ok().body(responseData);
     }
 
     @GetMapping(value = "/warge/{id}")
-    public ResponseEntity<?> getWarga(@PathVariable Long id){
-        ResponseData responseData = wargaService.showData(id);
+    public ResponseEntity<Object> getWarga(@PathVariable Long id){
+        ResponseData<Object> responseData = wargaService.showData(id);
         return ResponseEntity.ok().body(responseData);
     }
 
