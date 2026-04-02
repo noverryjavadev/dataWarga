@@ -51,6 +51,12 @@ public class WargaController {
         return ResponseEntity.ok().body(responseData);
     }
 
+    @GetMapping(value = "/warge/{id}")
+    public ResponseEntity<?> getWarga(@PathVariable Long id){
+        ResponseData responseData = wargaService.showData(id);
+        return ResponseEntity.ok().body(responseData);
+    }
+
 
 
 }

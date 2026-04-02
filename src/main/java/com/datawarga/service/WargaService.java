@@ -82,6 +82,16 @@ public class WargaService {
     }
 
 
+    public ResponseData showData(Long id){
+        Warga warga = wargaRepos.findById(id).get();
+        return ResponseData.builder()
+                .success(true)
+                .messages("success")
+                .data(warga)
+                .build();
+    }
+
+
 
 
 
